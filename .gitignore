@@ -1,0 +1,7 @@
+.idea
+vendor
+vendor/*
+build
+build/*
+/docs
+/cache.properties

@@ -1,4 +1,4 @@
-# An(d)dare plugin system
+# PHPPlugin system
 A simple plugin system supporting xml plugin files with extension points. The system implements
 different locator types to find plugins and different activators to activate plugins.
 

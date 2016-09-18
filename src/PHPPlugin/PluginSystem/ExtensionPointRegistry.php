@@ -13,7 +13,7 @@ class ExtensionPointRegistry implements ExtensionPointRegistryInterface
     /**
      * Extension point callbacks.
      *
-     * @var callable[]
+     * @var array[]
      */
     private $callbacks = [];
 

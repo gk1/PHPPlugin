@@ -1,5 +1,5 @@
 <?php
-namespace PHPPlugin\PluginSystem\Locator;
+namespace PHPPlugin\PluginSystem\ServiceLocator;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 

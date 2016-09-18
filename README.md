@@ -21,7 +21,7 @@ based on your own criteria which allows for different levels op application func
 ## Example usage
 
 ```php
-composer require gheevel/plugin-system
+composer require gheevel/phpplugin
 ```
 
 Create a directory for plugins with a new plugin directory containing a plugin.xml file and a plugin class.

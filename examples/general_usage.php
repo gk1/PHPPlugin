@@ -12,7 +12,7 @@ $pluginRegistry
 $pluginRegistry->activate();
 
 // Or preferably inject with a dependency injection container
-$extensionRegistry = ComponentAccessor::getInstance()->getExtensionPointRegistry();
+$extensionRegistry = ComponentAccessor::getInstance()->getExtensionRegistry();
 
 $extensionRegistry->getExtensionsByType('some.extension.type.identifier');
 $extensionRegistry->getExtensionByClassName('Some\Class');

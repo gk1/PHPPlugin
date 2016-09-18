@@ -13,6 +13,7 @@ interface ExtensionProxyInterface
      * ExtensionProxyInterface constructor.
      *
      * @param string $className
+     * @return void
      */
     public function __construct($className);
 
@@ -27,6 +28,7 @@ interface ExtensionProxyInterface
      * Set a service container instance.
      *
      * @param ContainerInterface $locator
+     * @return void
      */
     public function setServiceContainer(ContainerInterface $locator);
 

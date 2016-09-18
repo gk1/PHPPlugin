@@ -18,6 +18,7 @@ interface PluginInterface
      * Set the plugin descriptor.
      *
      * @param PluginDescriptorInterface $descriptor
+     * @return void
      */
     public function setDescriptor(PluginDescriptorInterface $descriptor);
 
@@ -32,6 +33,7 @@ interface PluginInterface
      * Sets the plugin path on disk.
      *
      * @param string $path
+     * @return void
      */
     public function setPluginPath($path);
 

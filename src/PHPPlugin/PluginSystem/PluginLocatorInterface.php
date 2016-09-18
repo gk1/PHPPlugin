@@ -11,6 +11,7 @@ interface PluginLocatorInterface
 {
     /**
      * Locate the plugins
+     * @return array
      */
     public function locate();
 

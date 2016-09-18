@@ -21,6 +21,7 @@ interface PluginLoaderInterface
      *
      * @param string                  $pluginPath
      * @param PluginRegistryInterface $registry
+     * @return void
      */
     public function load($pluginPath, PluginRegistryInterface $registry);
 }

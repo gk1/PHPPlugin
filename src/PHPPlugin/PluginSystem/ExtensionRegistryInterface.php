@@ -14,6 +14,7 @@ interface ExtensionRegistryInterface
      * @param string $type
      * @param $extension
      * @param ExtensionDeclarationInterface $declaration
+     * @return void
      */
     public function registerExtension($type, $extension, ExtensionDeclarationInterface $declaration);
 
@@ -27,6 +28,7 @@ interface ExtensionRegistryInterface
      *
      * @param string   $type
      * @param callable $callback
+     * @return void
      */
     public function registerExtensionPoint($type, callable $callback);
 

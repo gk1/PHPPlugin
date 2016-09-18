@@ -45,6 +45,7 @@ interface PluginRegistryInterface
      * @param PluginInterface $plugin
      *
      * @throws PluginRegistrationException when failing to register
+     * @return void
      */
     public function register($pluginName, PluginInterface $plugin);
 
@@ -75,6 +76,7 @@ interface PluginRegistryInterface
      * Add a plugin activator instance.
      *
      * @param PluginActivatorInterface $activator
+     * @return void
      */
     public function addPluginActivator(PluginActivatorInterface $activator);
 
@@ -98,11 +100,13 @@ interface PluginRegistryInterface
      * Add a plugin locator instance.
      *
      * @param PluginLocatorInterface $locator
+     * @return void
      */
     public function addPluginLocator(PluginLocatorInterface $locator);
 
     /**
      * Locate plugin instances.
+     * @return array
      */
     public function locate();
 
@@ -112,6 +116,7 @@ interface PluginRegistryInterface
      * @param string|PluginInterface $plugin
      *
      * @throws PluginLoadException when failing to activate a plugin
+     * @return void
      */
     public function activate($plugin = null);
 }

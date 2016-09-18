@@ -15,6 +15,7 @@ interface PluginActivatorInterface
      * @param PluginInterface $plugin
      *
      * @throws PluginLoadException when failing to activate the plugin
+     * @return void
      */
     public function activate(PluginInterface $plugin);
 }

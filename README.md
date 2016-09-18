@@ -15,10 +15,38 @@ based on your own criteria which allows for different levels op application func
 ## Terminology
 - Registry :: Container of shared objects (for example plugins and extension points)
 - Locators :: Objects that locate installed plugins
-- Activators :: Objects that provide different ways to activate plugins
+- Activators :: Objects athat provide different ways to activate plugins
 - Loader :: Loads and parses  plugin declaration and register it on the plugin registry
 
 ## Example usage
+
+```php
+composer require gheevel/plugin-system
+```
+
+Create a directory for plugins with a new plugin directory containing a plugin.xml file and a plugin class.
+(Directories may be nested)
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<plugin>
+    <name>company/plugin</name>
+    <pluginClass>Company\Plugin\Plugin</pluginClass> <!-- Just extend AbstractPlugin or implement PluginInterface //-->
+    <extension type="some.extension.type.identifier" className="Some\ClassOne" customPropertyOne="one" />
+    <extension type="some.extension.type.identifier" className="Some\ClassTwo" customPropertyTwo="two" />
+</plugin>
+```
+
+```php
+<?php
+namespace Company\Plugin;
+
+use PHPPlugin\PluginSystem\AbstractPlugin;
+
+class Plugin extends AbstractPlugin
+{
+    
+}
+```
 
 ```php
 <?php

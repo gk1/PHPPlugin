@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<plugin>
+    <name>company/plugin</name>
+    <pluginClass>Company\Plugin\Plugin</pluginClass> <!-- Just extend AbstractPlugin or implement PluginInterface //-->
+    <extension type="some.extension.type.identifier" className="Some\ClassOne" customPropertyOne="one" />
+    <extension type="some.extension.type.identifier" className="Some\ClassTwo" customPropertyTwo="two" />
+</plugin>

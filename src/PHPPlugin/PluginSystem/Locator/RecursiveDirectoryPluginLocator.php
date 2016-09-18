@@ -23,9 +23,9 @@ class RecursiveDirectoryPluginLocator implements PluginLocatorInterface
     /**
      * Locator path.
      *
-     * @var string
+     * @var array
      */
-    private $path;
+    private $path = [];
 
     public function __construct(array $options)
     {
@@ -35,32 +35,33 @@ class RecursiveDirectoryPluginLocator implements PluginLocatorInterface
         if (!isset($options['pluginFilename'])) {
             throw new \LogicException('No pluginFilename provided in options');
         }
-        $this->setPath($options['path']);
+        $this->addPath($options['path']);
         $this->options = $options;
     }
 
     /**
-     * Returns the locator path.
+     * Returns the locator paths
      *
-     * @return string
+     * @return array
      */
-    public function getPath()
+    public function getPaths()
     {
         return $this->path;
     }
 
     /**
-     * Set the locator path.
+     * Add a locator path
      *
      * @param $path
+     * @return RecursiveDirectoryPluginLocator
      */
-    public function setPath($path)
+    public function addPath($path)
     {
         if (!is_dir($path)) {
             throw new \InvalidArgumentException('Given plugin path cannot be found');
         }
-
-        $this->path = rtrim($path, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
+        $this->path[] = rtrim($path, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
+        return $this;
     }
 
     /**
@@ -71,22 +72,23 @@ class RecursiveDirectoryPluginLocator implements PluginLocatorInterface
     public function locate()
     {
         $paths = [];
-        $path = $this->getPath();
-        $dir = new \DirectoryIterator($path);
-        while ($dir->valid()) {
-            if (!$dir->isDir() || $dir->isDot()) {
+        $searchPaths = $this->getPaths();
+        while ($path = array_pop($searchPaths)) {
+            $dir = new \DirectoryIterator($path);
+            while ($dir->valid()) {
+                if (!$dir->isDir() || $dir->isDot()) {
+                    $dir->next();
+                    continue;
+                }
+                $pluginPath = $path . $dir->current() . DIRECTORY_SEPARATOR;
+                if (!$this->isPluginPath($pluginPath)) {
+                    $searchPaths[] = $pluginPath;
+                    $dir->next();
+                    continue;
+                }
+                $paths[] = $pluginPath;
                 $dir->next();
-                continue;
             }
-            $pluginPath = $path.$dir->current().DIRECTORY_SEPARATOR;
-            if (!$this->isPluginPath($pluginPath)) {
-                $this->setPath($pluginPath);
-                $paths = array_merge($paths, $this->locate());
-                $dir->next();
-                continue;
-            }
-            $paths[] = $pluginPath;
-            $dir->next();
         }
         return $paths;
     }

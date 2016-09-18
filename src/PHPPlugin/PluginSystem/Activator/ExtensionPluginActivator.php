@@ -2,31 +2,31 @@
 namespace PHPPlugin\PluginSystem\Activator;
 
 use PHPPlugin\PluginSystem\ExtensionDeclarationInterface;
-use PHPPlugin\PluginSystem\ExtensionPointRegistryInterface;
-use PHPPlugin\PluginSystem\ServiceLocator\ClassInstantiatingServiceLocator;
+use PHPPlugin\PluginSystem\ExtensionRegistryInterface;
+use PHPPlugin\PluginSystem\ServiceContainer\MockServiceContainer;
 use PHPPlugin\PluginSystem\PluginActivatorInterface;
 use PHPPlugin\PluginSystem\PluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Registers the extension points of loaded plugins
+ * Registers the extensions of loaded plugins
  * @package PHPPlugin\PluginSystem\Activator
  */
-class ExtensionPointPluginActivator implements PluginActivatorInterface
+class ExtensionPluginActivator implements PluginActivatorInterface
 {
     /**
-     * Extension point registry.
+     * Extension registry.
      *
-     * @var ExtensionPointRegistryInterface
+     * @var ExtensionRegistryInterface
      */
-    private $extensionPointRegistry;
+    private $extensionRegistry;
 
     /**
-     * Service locator instance.
+     * Service container instance.
      *
      * @var ContainerInterface
      */
-    private $serviceLocator;
+    private $serviceContainer;
 
     /**
      * Filtered extension classNames
@@ -35,13 +35,13 @@ class ExtensionPointPluginActivator implements PluginActivatorInterface
     private $filters = [];
 
     /**
-     * ExtensionPointPluginActivator constructor.
+     * ExtensionPluginActivator constructor.
      *
-     * @param ExtensionPointRegistryInterface $registry
+     * @param ExtensionRegistryInterface $registry
      */
-    public function __construct(ExtensionPointRegistryInterface $registry)
+    public function __construct(ExtensionRegistryInterface $registry)
     {
-        $this->extensionPointRegistry = $registry;
+        $this->extensionRegistry = $registry;
     }
 
     /**
@@ -75,29 +75,29 @@ class ExtensionPointPluginActivator implements PluginActivatorInterface
         foreach ($extensions as $declaration) {
             $extension = $this->createExtensionProxy($declaration);
             if (!in_array($declaration->getClassName(), $this->getFilteredClasses())) {
-                $this->extensionPointRegistry->registerExtension($declaration->getType(), $extension, $declaration);
+                $this->extensionRegistry->registerExtension($declaration->getType(), $extension, $declaration);
             }
         }
     }
 
     /**
-     * Returns the service locator instance.
+     * Returns the service container instance.
      *
      * @return ContainerInterface
      */
-    public function getServiceLocator()
+    public function getServiceContainer()
     {
-        return $this->serviceLocator ?: new ClassInstantiatingServiceLocator();
+        return $this->serviceContainer ?: new MockServiceContainer();
     }
 
     /**
-     * Set the service locator instance.
+     * Set the service container instance.
      *
      * @param ContainerInterface $locator
      */
-    public function setServiceLocator(ContainerInterface $locator)
+    public function setServiceContainer(ContainerInterface $locator)
     {
-        $this->serviceLocator = $locator;
+        $this->serviceContainer = $locator;
     }
 
     /**
@@ -111,7 +111,7 @@ class ExtensionPointPluginActivator implements PluginActivatorInterface
     {
         $className = $declaration->getClassName();
 
-        return $this->getServiceLocator()->get($className);
+        return $this->getServiceContainer()->get($className);
     }
 
     /**
@@ -125,6 +125,6 @@ class ExtensionPointPluginActivator implements PluginActivatorInterface
     {
         $className = $declaration->getClassName();
 
-        return new DefaultExtensionProxy($className, $this->serviceLocator);
+        return new DefaultExtensionProxy($className, $this->getServiceContainer());
     }
 }

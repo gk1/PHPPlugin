@@ -2,22 +2,23 @@
 
 namespace PHPPluginUnitTest\PluginSystem\Activator;
 
-use PHPPlugin\PluginSystem\Activator\ExtensionPointPluginActivator;
-use PHPPlugin\PluginSystem\ExtensionPointRegistryInterface;
+use PHPPlugin\PluginSystem\Activator\ExtensionPluginActivator;
+use PHPPlugin\PluginSystem\ExtensionRegistryInterface;
 use PHPPlugin\PluginSystem\PluginInterface;
 
-class ExtensionPointPluginActivatorTest extends \PHPUnit_Framework_TestCase
+class ExtensionPluginActivatorTest extends \PHPUnit_Framework_TestCase
 {
-    /* @var ExtensionPointPluginActivator */
+    /* @var ExtensionPluginActivator */
     private $subject;
-    /* @var ExtensionPointRegistryInterface|\PHPUnit_Framework_MockObject_MockObject */
+
+    /* @var ExtensionRegistryInterface|\PHPUnit_Framework_MockObject_MockObject */
     private $mockRegistry;
 
     public function setUp()
     {
-        $this->mockRegistry = $this->getMockBuilder('PHPPlugin\PluginSystem\ExtensionPointRegistryInterface')
+        $this->mockRegistry = $this->getMockBuilder('PHPPlugin\PluginSystem\ExtensionRegistryInterface')
                 ->getMockForAbstractClass();
-        $this->subject = new ExtensionPointPluginActivator($this->mockRegistry);
+        $this->subject = new ExtensionPluginActivator($this->mockRegistry);
     }
 
     /**

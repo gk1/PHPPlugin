@@ -1,13 +1,13 @@
 <?php
-namespace PHPPlugin\PluginSystem\ServiceLocator;
+namespace PHPPlugin\PluginSystem\ServiceContainer;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Simple service locator `mock` capable of creating new objects
+ * Simple service container `mock` capable of creating new objects
  * @package PHPPlugin\PluginSystem\Locator
  */
-class ClassInstantiatingServiceLocator implements ContainerInterface
+class MockServiceContainer implements ContainerInterface
 {
 
     public function hasParameter($name)
@@ -43,12 +43,13 @@ class ClassInstantiatingServiceLocator implements ContainerInterface
     /**
      * Returns new instance of the $className class.
      *
-     * @param string $className
+     * @param string $id
+     * @param int $invalidBehavior
      *
      * @return mixed instance of $className class
      */
-    public function get($className, $invalidBehavior = ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
+    public function get($id, $invalidBehavior = self::EXCEPTION_ON_INVALID_REFERENCE)
     {
-        return new $className();
+        return new $id();
     }
 }

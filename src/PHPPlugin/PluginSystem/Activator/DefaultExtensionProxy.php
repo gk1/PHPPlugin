@@ -1,7 +1,7 @@
 <?php
 namespace PHPPlugin\PluginSystem\Activator;
 
-use PHPPlugin\PluginSystem\ServiceLocator\ClassInstantiatingServiceLocator;
+use PHPPlugin\PluginSystem\ServiceContainer\MockServiceContainer;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -12,35 +12,44 @@ class DefaultExtensionProxy implements ExtensionProxyInterface
 {
     /* @var string */
     private $className;
+
     /* @var ContainerInterface */
-    private $serviceLocator;
+    private $serviceContainer;
 
     /**
      * DefaultExtensionProxy constructor.
      *
      * @param string             $className
-     * @param ContainerInterface $serviceLocator
+     * @param ContainerInterface $serviceContainer
      */
-    public function __construct($className, $serviceLocator = null)
+    public function __construct($className, $serviceContainer = null)
     {
         $this->className = $className;
-        $this->setServiceLocator($serviceLocator ?: new ClassInstantiatingServiceLocator());
+        $this->setServiceContainer($serviceContainer ?: new MockServiceContainer());
     }
 
+    /**
+     * Returns the extension FQCN
+     * @return string
+     */
     public function getClassName()
     {
         return $this->className;
     }
 
-    public function setServiceLocator(ContainerInterface $locator)
+    /**
+     * Sets the service container instance
+     * @param ContainerInterface $locator
+     */
+    public function setServiceContainer(ContainerInterface $locator)
     {
-        $this->serviceLocator = $locator;
+        $this->serviceContainer = $locator;
     }
 
     public function getInstance()
     {
         $className = $this->className;
 
-        return $this->serviceLocator->get($className);
+        return $this->serviceContainer->get($className);
     }
 }

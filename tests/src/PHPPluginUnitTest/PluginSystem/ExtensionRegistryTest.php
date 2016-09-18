@@ -3,16 +3,18 @@
 namespace PHPPluginUnitTest\PluginSystem;
 
 use PHPPlugin\PluginSystem\ExtensionDeclarationInterface;
-use PHPPlugin\PluginSystem\ExtensionPointRegistry;
+use PHPPlugin\PluginSystem\ExtensionRegistry;
 use PHPPlugin\PluginSystem\PluginRegistryInterface;
 use PHPPlugin\PluginSystem\UnitTestPlugin;
 
-class ExtensionPointRegistryTest extends \PHPUnit_Framework_TestCase
+class ExtensionRegistryTest extends \PHPUnit_Framework_TestCase
 {
-    /* @var ExtensionPointRegistry */
+    /* @var ExtensionRegistry */
     private $subject;
+
     /* @var \stdClass */
     private $extension;
+
     /* @var ExtensionDeclarationInterface */
     private $declaration;
 
@@ -35,8 +37,8 @@ class ExtensionPointRegistryTest extends \PHPUnit_Framework_TestCase
         $this->descriptor->expects($this->any())->method('getExtensionByClassName')
                 ->with('PHPPlugin\PluginSystem\UnitTestPlugin')
                 ->willReturn($this->declaration);
-        $mockPluginRegistry->expects($this->any())->method('getPlugins')->willReturn(array('anddare/unittest' => $this->extension));
-        $this->subject = new ExtensionPointRegistry($mockPluginRegistry);
+        $mockPluginRegistry->expects($this->any())->method('getPlugins')->willReturn(array('company/unittest' => $this->extension));
+        $this->subject = new ExtensionRegistry($mockPluginRegistry);
         $this->subject->registerExtension('test', $this->extension, $this->declaration);
     }
 

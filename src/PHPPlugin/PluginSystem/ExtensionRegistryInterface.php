@@ -2,11 +2,11 @@
 namespace PHPPlugin\PluginSystem;
 
 /**
- * The extension point registry holds
+ * The extension registry holds
  * all information on registered plugin extensions
  * @package PHPPlugin\PluginSystem
  */
-interface ExtensionPointRegistryInterface
+interface ExtensionRegistryInterface
 {
     /**
      * Register an extension.

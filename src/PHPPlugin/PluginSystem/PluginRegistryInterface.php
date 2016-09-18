@@ -49,11 +49,11 @@ interface PluginRegistryInterface
     public function register($pluginName, PluginInterface $plugin);
 
     /**
-     * Returns the extension point registry.
+     * Returns the extension registry.
      *
-     * @return ExtensionPointRegistryInterface
+     * @return ExtensionRegistryInterface
      */
-    public function getExtensionPointRegistry();
+    public function getExtensionRegistry();
 
     /**
      * Returns the plugin activator instances.

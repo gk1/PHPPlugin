@@ -2,6 +2,7 @@
 namespace PHPPlugin\PluginSystem;
 
 use PHPPlugin\PluginSystem\Activator\DefaultPluginActivator;
+use PHPPlugin\PluginSystem\Activator\ExtensionPluginActivator;
 use PHPPlugin\PluginSystem\Activator\ExtensionPointPluginActivator;
 use PHPPlugin\PluginSystem\Exception\ActivatorNotFoundException;
 use PHPPlugin\PluginSystem\Exception\LocatorNotFoundException;
@@ -16,7 +17,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class PluginRegistry implements PluginRegistryInterface
 {
-    const CACHE_KEY = 'com.anddare.plugin.system.pluginPaths';
+    const CACHE_KEY = 'org.phpplugin.plugin.system.pluginPaths';
 
     /**
      * Plugin storage.
@@ -40,18 +41,18 @@ class PluginRegistry implements PluginRegistryInterface
     private $pluginLocators = [];
 
     /**
-     * Extension point registry.
+     * Extension registry.
      *
-     * @var ExtensionPointRegistryInterface
+     * @var ExtensionRegistryInterface
      */
-    private $extensionPointRegistry = null;
+    private $extensionRegistry = null;
 
     /**
-     * Service Locator.
+     * Service container.
      *
      * @var \Symfony\Component\DependencyInjection\ContainerInterface
      */
-    private $serviceLocator = null;
+    private $serviceContainer = null;
 
     /**
      * Cache component
@@ -75,29 +76,29 @@ class PluginRegistry implements PluginRegistryInterface
      * Check if we have a service locator
      * @return boolean
      */
-    public function hasServiceLocator()
+    public function hasServiceContainer()
     {
-        return !is_null($this->serviceLocator);
+        return !is_null($this->serviceContainer);
     }
 
     /**
-     * Returns the service locator instance.
+     * Returns the service container instance.
      *
      * @return \Symfony\Component\DependencyInjection\ContainerInterface
      */
-    public function getServiceLocator()
+    public function getServiceContainer()
     {
-        return $this->serviceLocator;
+        return $this->serviceContainer;
     }
 
     /**
-     * Set the service locator instance.
+     * Set the service container instance.
      *
-     * @param ContainerInterface $locator
+     * @param ContainerInterface $container
      */
-    public function setServiceLocator(ContainerInterface $locator)
+    public function setServiceContainer(ContainerInterface $container)
     {
-        $this->serviceLocator = $locator;
+        $this->serviceContainer = $container;
     }
 
     /**
@@ -196,18 +197,18 @@ class PluginRegistry implements PluginRegistryInterface
     }
 
     /**
-     * Returns the extension point registry.
+     * Returns the extension registry.
      *
-     * @return ExtensionPointRegistryInterface
+     * @return ExtensionRegistryInterface
      */
-    public function getExtensionPointRegistry()
+    public function getExtensionRegistry()
     {
-        if (is_null($this->extensionPointRegistry)) {
-            $this->extensionPointRegistry = ComponentAccessor::getInstance()
-                    ->getExtensionPointRegistry();
+        if (is_null($this->extensionRegistry)) {
+            $this->extensionRegistry = ComponentAccessor::getInstance()
+                    ->getExtensionRegistry();
         }
 
-        return $this->extensionPointRegistry;
+        return $this->extensionRegistry;
     }
 
     /**
@@ -319,7 +320,7 @@ class PluginRegistry implements PluginRegistryInterface
     protected function addDefaultActivators()
     {
         $this->addPluginActivator(new DefaultPluginActivator());
-        $activator = new ExtensionPointPluginActivator($this->getExtensionPointRegistry());
+        $activator = new ExtensionPluginActivator($this->getExtensionRegistry());
         $this->addPluginActivator($activator);
     }
 

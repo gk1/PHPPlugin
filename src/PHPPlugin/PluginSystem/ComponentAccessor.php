@@ -25,11 +25,11 @@ class ComponentAccessor
     private $pluginRegistry;
 
     /**
-     * Extension point registry instance.
+     * Extension registry instance.
      *
-     * @var ExtensionPointRegistryInterface
+     * @var ExtensionRegistryInterface
      */
-    private $extensionPointRegistry;
+    private $extensionRegistry;
 
     /**
      * Protect the singleton
@@ -64,22 +64,22 @@ class ComponentAccessor
     }
 
     /**
-     * Returns the extension point registry instance.
+     * Returns the extension registry instance.
      *
-     * @return ExtensionPointRegistryInterface
+     * @return ExtensionRegistryInterface
      */
-    public function getExtensionPointRegistry()
+    public function getExtensionRegistry()
     {
-        $this->extensionPointRegistry = $this->extensionPointRegistry ?: $this->buildExtensionPointRegistry();
+        $this->extensionRegistry = $this->extensionRegistry ?: $this->buildExtensionRegistry();
 
-        return $this->extensionPointRegistry;
+        return $this->extensionRegistry;
     }
 
     /**
-     * @return ExtensionPointRegistry
+     * @return ExtensionRegistry
      */
-    protected function buildExtensionPointRegistry()
+    protected function buildExtensionRegistry()
     {
-        return new ExtensionPointRegistry($this->getPluginRegistry());
+        return new ExtensionRegistry($this->getPluginRegistry());
     }
 }

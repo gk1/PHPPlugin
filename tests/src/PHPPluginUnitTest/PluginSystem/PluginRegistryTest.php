@@ -113,15 +113,15 @@ class PluginRegistryTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($mockCache, $registry->getCache());
     }
 
-    public function testCanSetAServiceLocator()
+    public function testCanSetAServiceContainer()
     {
         $registry = $this->subject;
-        $mockLocator = $this->getMockBuilder('Symfony\Component\DependencyInjection\ContainerInterface')
+        $mockContainer = $this->getMockBuilder('Symfony\Component\DependencyInjection\ContainerInterface')
                 ->getMockForAbstractClass();
-        $this->assertFalse($registry->hasServiceLocator());
-        $registry->setServiceLocator($mockLocator);
-        $this->assertTrue($registry->hasServiceLocator());
-        $this->assertSame($mockLocator, $registry->getServiceLocator());
+        $this->assertFalse($registry->hasServiceContainer());
+        $registry->setServiceContainer($mockContainer);
+        $this->assertTrue($registry->hasServiceContainer());
+        $this->assertSame($mockContainer, $registry->getServiceContainer());
     }
 
     public function testCanLocatePluginsFromCache()

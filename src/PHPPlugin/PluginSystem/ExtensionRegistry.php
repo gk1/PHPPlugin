@@ -4,11 +4,11 @@ namespace PHPPlugin\PluginSystem;
 use PHPPlugin\PluginSystem\Activator\ExtensionProxyInterface;
 
 /**
- * The extension point registry holds information
+ * The extension registry holds information
  * about the registered plugin extensions
  * @package PHPPlugin\PluginSystem
  */
-class ExtensionPointRegistry implements ExtensionPointRegistryInterface
+class ExtensionRegistry implements ExtensionRegistryInterface
 {
     /**
      * Extension point callbacks.
@@ -32,7 +32,7 @@ class ExtensionPointRegistry implements ExtensionPointRegistryInterface
     private $extensions = [];
 
     /**
-     * ExtensionPointRegistry constructor.
+     * ExtensionRegistry constructor.
      *
      * @param PluginRegistryInterface $registry
      */
@@ -181,19 +181,19 @@ class ExtensionPointRegistry implements ExtensionPointRegistryInterface
     private function handleProxyInstance($extension, $type, $key)
     {
         if ($extension instanceof ExtensionProxyInterface) {
-            $this->injectAvailableServiceLocator($extension);
+            $this->injectAvailableServiceContainer($extension);
             $this->extensions[$type][$key] = $extension->getInstance();
         }
     }
 
     /**
-     * Inject the service locator if available
-     * @param ExtensionProxyInterface $extension
+     * Inject the service container if available
+     * @param ExtensionProxyInterface $proxy
      */
-    private function injectAvailableServiceLocator(ExtensionProxyInterface $extension)
+    private function injectAvailableServiceContainer(ExtensionProxyInterface $proxy)
     {
-        if ($this->pluginRegistry->hasServiceLocator()) {
-            $extension->setServiceLocator($this->pluginRegistry->getServiceLocator());
+        if ($this->pluginRegistry->hasServiceContainer()) {
+            $proxy->setServiceContainer($this->pluginRegistry->getServiceContainer());
         }
     }
 

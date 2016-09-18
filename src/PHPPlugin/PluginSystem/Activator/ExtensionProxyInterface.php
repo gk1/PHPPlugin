@@ -24,11 +24,11 @@ interface ExtensionProxyInterface
     public function getClassName();
 
     /**
-     * Set a service locator instance.
+     * Set a service container instance.
      *
      * @param ContainerInterface $locator
      */
-    public function setServiceLocator(ContainerInterface $locator);
+    public function setServiceContainer(ContainerInterface $locator);
 
     /**
      * Returns the extension instance.

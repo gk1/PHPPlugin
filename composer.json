@@ -1,7 +1,11 @@
 {
-    "name": "gheevel/plugin-system",
-    "description": "PHP Plugin System",
-    "license": "propietary",
+    "name": "gheevel/phpplugin",
+    "description": "A simple > PHP5.3 plugin system supporting plugin descriptor files and extension points. It is inspired by the eclipse and jira plugin architectures.
+    In combination with a dependency manager (Composer), a module system (for example Symfony bundles) and a depency injection framework (for example the Symfony service container)
+    this provides a very powerfull way of building a pluggable architecture in a PHP application. It can be easily extended to filter loaded plugins
+    based on your own criteria which allows for different levels op application functionalities (maybe based on subscription level).",
+    "license": "MIT",
+    "homepage": "https://github.com/gheevel/PHPPlugin",
     "authors": [
         {
             "name": "Gillis Heevel",
@@ -11,8 +15,8 @@
     "autoload": {
         "psr-4": {"PHPPlugin\\PluginSystem\\": "src/PHPPlugin/PluginSystem/"}
     },
-    "require": {
-        "symfony/cache": "^3.1"
+    "suggest": {
+        "symfony/cache": "Allows for plugin location caching"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.4",
@@ -24,7 +28,5 @@
         "sebastian/phpcpd": "^2.0",
         "phpmetrics/phpmetrics": "^1.10",
         "friendsofphp/php-cs-fixer": "^1.11"
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    }
 }

@@ -39,20 +39,20 @@ class FilteringPluginLoaderTest extends \PHPUnit_Framework_TestCase
     public function testCanLoadPlugins()
     {
         $loader = $this->subject;
-        $loader->addFilter('anddare/unknown');
-        $this->assertContains('anddare/unknown', $loader->getFilters());
+        $loader->addFilter('company/unknown');
+        $this->assertContains('company/unknown', $loader->getFilters());
         $registry = $this->getMockRegistry();
-        $registry->expects($this->once())->method('register')->with('anddare/unittest', $this->anything());
+        $registry->expects($this->once())->method('register')->with('company/unittest', $this->anything());
         $loader->load(realpath('./tests/src/__files/module-dir/unit-test') . '/', $registry);
     }
 
     public function testCanFilterPluginLoading()
     {
         $loader = $this->subject;
-        $loader->addFilter('anddare/unittest');
-        $this->assertContains('anddare/unittest', $loader->getFilters());
+        $loader->addFilter('company/unittest');
+        $this->assertContains('company/unittest', $loader->getFilters());
         $registry = $this->getMockRegistry();
-        $registry->expects($this->exactly(0))->method('register')->with('anddare/unittest', $this->anything());
+        $registry->expects($this->exactly(0))->method('register')->with('company/unittest', $this->anything());
         $loader->load(realpath('./tests/src/__files/module-dir/unit-test') . '/', $registry);
     }
 

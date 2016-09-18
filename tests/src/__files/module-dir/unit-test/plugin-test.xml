@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <plugin>
-    <name>anddare/unittest</name>
+    <name>company/unittest</name>
     <pluginClass>PHPPlugin\PluginSystem\UnitTestPlugin</pluginClass>
     <extension type="test" className="PHPPlugin\PluginSystem\UnitTestPlugin" test="test1" />
     <extension type="test" className="PHPPlugin\PluginSystem\UnitTestPlugin2" test="test2" />

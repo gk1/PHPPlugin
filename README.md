@@ -8,7 +8,7 @@
 
 # PHPPlugin system
 A simple > PHP5.3 plugin system supporting plugin descriptor files and extension points. It is inspired by the eclipse and jira plugin architectures. 
-In combination with a dependency manager (Composer), a module system (for example Symfony bundles) and a depency injection framework (for example the Symfony service container) 
+In combination with a dependency manager (Composer), a module system (for example Symfony bundles) and a dependency injection framework (for example the Symfony service container) 
 this provides a very powerfull way of building a pluggable architecture in a PHP application. It can be easily extended to filter loaded plugins 
 based on your own criteria which allows for different levels op application functionalities (maybe based on subscription level).
 

@@ -3,7 +3,7 @@ namespace PHPPlugin\PluginSystem\Activator;
 
 use PHPPlugin\PluginSystem\ExtensionDeclarationInterface;
 use PHPPlugin\PluginSystem\ExtensionPointRegistryInterface;
-use PHPPlugin\PluginSystem\Locator\ClassInstantiatingServiceLocator;
+use PHPPlugin\PluginSystem\ServiceLocator\ClassInstantiatingServiceLocator;
 use PHPPlugin\PluginSystem\PluginActivatorInterface;
 use PHPPlugin\PluginSystem\PluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;

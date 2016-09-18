@@ -1,6 +1,6 @@
 {
     "name": "gheevel/phpplugin",
-    "description": "A simple > PHP5.3 plugin system supporting plugin descriptor files and extension points. It is inspired by the eclipse and jira plugin architectures.",
+    "description": "A simple >= PHP5 plugin system supporting plugin descriptor files and extension points. It is inspired by the eclipse and jira plugin architectures.",
     "license": "MIT",
     "homepage": "https://github.com/gheevel/PHPPlugin",
     "authors": [

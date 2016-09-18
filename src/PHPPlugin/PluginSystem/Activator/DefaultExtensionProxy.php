@@ -1,7 +1,7 @@
 <?php
 namespace PHPPlugin\PluginSystem\Activator;
 
-use PHPPlugin\PluginSystem\Locator\ClassInstantiatingServiceLocator;
+use PHPPlugin\PluginSystem\ServiceLocator\ClassInstantiatingServiceLocator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

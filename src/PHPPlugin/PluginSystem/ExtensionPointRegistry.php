@@ -55,6 +55,7 @@ class ExtensionPointRegistry implements ExtensionPointRegistryInterface
         }
         $class = $extension instanceof ExtensionProxyInterface ? $extension->getClassName() : get_class($extension);
         $this->extensions[$type][$class] = $extension;
+
         if (isset($this->callbacks[$type]) && is_array($this->callbacks[$type])) {
             foreach ($this->callbacks[$type] as $callback) {
                 call_user_func($callback, $type, $extension, $declaration);
@@ -71,9 +72,9 @@ class ExtensionPointRegistry implements ExtensionPointRegistryInterface
     public function registerExtensionPoint($type, callable $callback)
     {
         if (!isset($this->callbacks[$type])) {
-            $this->callbacks[$type] = [];
+            $this->callbacks[$type] = array();
         }
-        $this->callbacks[$type][] = $callback;
+        array_push($this->callbacks[$type], $callback);
     }
 
     /**
@@ -146,12 +147,7 @@ class ExtensionPointRegistry implements ExtensionPointRegistryInterface
     {
         if (isset($this->extensions[$type]) && is_array($this->extensions[$type])) {
             foreach ($this->extensions[$type] as $key => $extension) {
-                if ($extension instanceof ExtensionProxyInterface) {
-                    if ($this->pluginRegistry->hasServiceLocator()) {
-                        $extension->setServiceLocator($this->pluginRegistry->getServiceLocator());
-                    }
-                    $this->extensions[$type][$key] = $extension->getInstance();
-                }
+                $this->handleProxyInstance($extension, $type, $key);
             }
         }
         return isset($this->extensions[$type]) ? $this->extensions[$type] : [];
@@ -168,17 +164,37 @@ class ExtensionPointRegistry implements ExtensionPointRegistryInterface
         foreach ($this->extensions as $type => $extensions) {
             foreach ($extensions as $cN => $extension) {
                 if ($cN == $className) {
-                    if ($extension instanceof ExtensionProxyInterface) {
-                        if ($this->pluginRegistry->hasServiceLocator()) {
-                            $extension->setServiceLocator($this->pluginRegistry->getServiceLocator());
-                        }
-                        $this->extensions[$type][$cN] = $extension->getInstance();
-                    }
+                    $this->handleProxyInstance($extension, $type, $cN);
                     return $this->extensions[$type][$cN];
                 }
             }
         }
         throw new \Exception('No extension found of class: '.$className);
+    }
+
+    /**
+     * Get the instance from a extension proxy instance
+     * @param $extension
+     * @param $type
+     * @param $key
+     */
+    private function handleProxyInstance($extension, $type, $key)
+    {
+        if ($extension instanceof ExtensionProxyInterface) {
+            $this->injectAvailableServiceLocator($extension);
+            $this->extensions[$type][$key] = $extension->getInstance();
+        }
+    }
+
+    /**
+     * Inject the service locator if available
+     * @param ExtensionProxyInterface $extension
+     */
+    private function injectAvailableServiceLocator(ExtensionProxyInterface $extension)
+    {
+        if ($this->pluginRegistry->hasServiceLocator()) {
+            $extension->setServiceLocator($this->pluginRegistry->getServiceLocator());
+        }
     }
 
     /**

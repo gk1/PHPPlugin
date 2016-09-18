@@ -292,7 +292,6 @@ class PluginRegistry implements PluginRegistryInterface
         if ($this->hasCache()) {
             $cache = $this->getCache();
             if ($clearCache) {
-                $item = $cache->getItem(self::CACHE_KEY);
                 $cache->deleteItem(self::CACHE_KEY);
             }
             if ($cache->hasItem(self::CACHE_KEY)) {

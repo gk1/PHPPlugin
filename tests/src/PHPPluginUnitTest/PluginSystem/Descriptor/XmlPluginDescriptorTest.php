@@ -17,7 +17,7 @@ class XmlPluginDescriptorTest extends \PHPUnit_Framework_TestCase
 
     public function testCanReadName()
     {
-        $this->assertSame('anddare/unittest', $this->subject->getName());
+        $this->assertSame('company/unittest', $this->subject->getName());
     }
 
     public function testCanGetPluginClass()

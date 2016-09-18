@@ -40,7 +40,7 @@ class DefaultPluginLoaderTest extends \PHPUnit_Framework_TestCase
     {
         $loader = $this->subject;
         $registry = $this->getMockRegistry();
-        $registry->expects($this->once())->method('register')->with('anddare/unittest', $this->anything());
+        $registry->expects($this->once())->method('register')->with('company/unittest', $this->anything());
         $loader->load(realpath('./tests/src/__files/module-dir/unit-test') . '/', $registry);
     }
 

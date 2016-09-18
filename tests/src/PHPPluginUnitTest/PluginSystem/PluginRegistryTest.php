@@ -149,7 +149,7 @@ class PluginRegistryTest extends \PHPUnit_Framework_TestCase
                 ->getMockForAbstractClass();
         $mockItem->expects($this->any())->method('get')->willReturn(['.']);
         $cache->expects($this->atleast(1))->method('getItem')->with(PluginRegistry::CACHE_KEY)->willReturn($mockItem);
-        $cache->expects($this->once())->method('deleteItem')->with($mockItem);
+        $cache->expects($this->once())->method('deleteItem')->with(PluginRegistry::CACHE_KEY);
         $cache->expects($this->any())->method('hasItem')->with(PluginRegistry::CACHE_KEY)->willReturn(false);
         $cache->expects($this->once())->method('save')->with($this->anything());
         $registry->setCache($cache);

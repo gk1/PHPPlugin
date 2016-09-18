@@ -13,6 +13,7 @@
         "psr-4": {"PHPPlugin\\PluginSystem\\": "src/PHPPlugin/PluginSystem/"}
     },
     "suggest": {
+        "symfony/dependency-injection": "Allows for plugin creation by the service container",
         "symfony/cache": "Allows for plugin location caching"
     },
     "require-dev": {

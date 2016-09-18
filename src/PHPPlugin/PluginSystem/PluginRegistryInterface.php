@@ -107,11 +107,11 @@ interface PluginRegistryInterface
     public function locate();
 
     /**
-     * Activate the plugin (with the specified name).
+     * Activate the given plugin or all plugins when no plugin is specified.
      *
-     * @param string|PluginInterface $name
+     * @param string|PluginInterface $plugin
      *
-     * @throws PluginLoadException when failing to activate the plugin
+     * @throws PluginLoadException when failing to activate a plugin
      */
-    public function activate($name);
+    public function activate($plugin = null);
 }
